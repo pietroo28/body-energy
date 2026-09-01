@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iphones baratinhos confia</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#080b12;--card:#111827;--card2:#172033;--text:#f8fafc;--muted:#94a3b8;--primary:#3b82f6;--purple:#8b5cf6;--ok:#22c55e;--danger:#ef4444}
+body{font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at 10% 10%,#172554 0,transparent 35%),radial-gradient(circle at 90% 90%,#3b0764 0,transparent 30%),var(--bg);color:var(--text);min-height:100vh}
+button,input{font:inherit}.hidden{display:none!important}
+.screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{width:100%;max-width:430px;background:rgba(17,24,39,.88);border:1px solid #263247;border-radius:22px;padding:32px;box-shadow:0 20px 60px #0008;backdrop-filter:blur(14px)}
+.logo{width:70px;height:70px;border-radius:20px;background:linear-gradient(135deg,var(--primary),var(--purple));display:grid;place-items:center;font-size:32px;margin:0 auto 18px}
+h1{text-align:center;font-size:27px;margin-bottom:8px}.sub{text-align:center;color:var(--muted);margin-bottom:25px}
+.field{margin-bottom:15px}.field label{display:block;margin-bottom:7px;color:#dbeafe;font-size:14px}
+input{width:100%;padding:13px 14px;border-radius:11px;border:1px solid #334155;background:#0b1220;color:white;outline:none}
+input:focus{border-color:var(--primary);box-shadow:0 0 0 3px #3b82f633}
+.btn{width:100%;border:0;border-radius:11px;padding:13px;font-weight:bold;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-1px)}.primary{background:linear-gradient(135deg,var(--primary),var(--purple));color:white}
+.link{background:none;border:0;color:#60a5fa;cursor:pointer}.small{text-align:center;margin-top:17px;color:var(--muted);font-size:14px}
+.msg{padding:10px;border-radius:10px;margin-bottom:14px;font-size:14px}.error{background:#450a0a;color:#fecaca}.success{background:#052e16;color:#bbf7d0}
+header{height:72px;border-bottom:1px solid #243044;background:#0b1220dd;display:flex;align-items:center;justify-content:space-between;padding:0 5%;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.brand{font-weight:800;font-size:19px}.user{color:#cbd5e1;font-size:14px}
+nav{display:flex;gap:8px}nav button{background:none;border:0;color:#cbd5e1;padding:9px 12px;border-radius:9px;cursor:pointer}nav button:hover,nav .active{background:#1e293b;color:white}
+main{max-width:1100px;margin:auto;padding:42px 5%}.hero{background:linear-gradient(135deg,#172554,#111827 55%,#3b0764);padding:32px;border-radius:22px;border:1px solid #334155;margin-bottom:25px}.hero h2{font-size:32px;margin-bottom:8px}.hero p{color:#cbd5e1}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.box{background:var(--card);border:1px solid #263247;border-radius:17px;padding:22px}.box h3{margin-bottom:8px}.box p{color:var(--muted);font-size:14px;line-height:1.5}.price{font-size:25px;font-weight:800;margin:13px 0}.box .btn{margin-top:14px}
+.page{display:none}.page.active{display:block}
+.payment{max-width:760px;margin:auto}.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:20px 0}.plan{border:1px solid #334155;border-radius:15px;padding:18px;background:#111827}.plan.selected{border-color:var(--primary);box-shadow:0 0 0 2px #3b82f655}.plan button{margin-top:12px}
+.method{display:flex;gap:10px;margin:18px 0}.method button{flex:1;background:#172033;color:white;border:1px solid #334155;border-radius:10px;padding:12px;cursor:pointer}.method .selected{border-color:var(--primary);background:#1e3a8a}
+.pix{background:#0b1220;padding:18px;border-radius:14px;text-align:center}.pixcode{word-break:break-all;color:#93c5fd;font-size:13px;margin:10px 0}.status{text-align:center;padding:15px;background:#052e16;color:#bbf7d0;border-radius:12px}
+@media(max-width:760px){.grid,.plans{grid-template-columns:1fr}header{height:auto;min-height:72px;gap:8px;flex-wrap:wrap;padding:12px 5%}.hero h2{font-size:25px}}
+</style>
+</head>
+<body>
+
+<section id="auth" class="screen">
+  <div class="card">
+    <div class="logo">🚀</div>
+    <h1>body energy</h1>
+    <p class="sub" id="authSub">Crie sua conta para continuar</p>
+    <div id="authMsg"></div>
+
+    <div id="registerFields">
+      <div class="field"><label>Nome</label><input id="name" placeholder="Digite seu nome"></div>
+    </div>
+    <div class="field"><label>E-mail</label><input id="email" type="email" placeholder="Digite seu e-mail"></div>
+    <div class="field"><label>Senha</label><input id="password" type="password" placeholder="Mínimo de 6 caracteres"></div>
+    <button class="btn primary" id="authBtn">Criar conta</button>
+
+    <p class="small"><span id="switchText">Já possui uma conta?</span>
+      <button class="link" id="switchBtn">Entrar</button>
+    </p>
+  </div>
+</section>
+
+<section id="app" class="hidden">
+<header>
+  <div class="brand">🚀 Body tune</div>
+  <nav>
+    <button class="active" data-page="home">Início</button>
+    <button data-page="courses">Planos</button>
+    <button data-page="payment">Pagamento</button>
+    <button id="logout">Sair</button>
+  </nav>
+  <div class="user" id="userLabel"></div>
+</header>
+
+<main>
+  <section id="home" class="page active">
+    <div class="hero"><h2 id="welcome">Olá!</h2><p>Bem-vindo ao seu painel. Escolha um plano para começar sua matrícula.</p></div>
+    <div class="grid">
+      <div class="box"><h3>📚 Área do aluno</h3><p>Acesse seus conteúdos e acompanhe sua jornada na Academy.</p></div>
+      <div class="box"><h3>🎯 Seus planos</h3><p>Compare os planos disponíveis e escolha o que combina com você.</p></div>
+      <div class="box"><h3>💳 Pagamento</h3><p>Selecione PIX ou cartão e conclua sua matrícula.</p></div>
+    </div>
+  </section>
+
+  <section id="courses" class="page">
+    <div class="hero"><h2>Planos body</h2><p>Selecione um plano para continuar.</p></div>
+    <div class="grid">
+      <div class="box"><h3>body basic</h3><div class="price">R$ 99,90/mês</div><p>Conteúdos essenciais e acesso à plataforma.</p><button class="btn primary choose" data-plan="Plano Básico" data-price="99,90">Matricule-se</button></div>
+      <div class="box"><h3>body classic</h3><div class="price">R$ 230,00/mês</div><p>Conteúdos completos e recursos premium.</p><button class="btn primary choose" data-plan="Plano Premium" data-price="230,00">Matricule-se</button></div>
+      <div class="box"><h3>Full body</h3><div class="price">R$ 349,90/mês</div><p>Experiência completa para quem quer mais recursos.</p><button class="btn primary choose" data-plan="Plano Pro" data-price="349,90">Matricule-se</button></div>
+    </div>
+  </section>
+
+  <section id="payment" class="page payment">
+    <div class="hero"><h2>Pagamento</h2><p id="selectedPlan">Escolha um plano para começar.</p></div>
+    <div id="paymentContent" class="box hidden">
+      <div class="method"><button id="pixBtn">PIX</button><button id="cardBtn">Cartão</button></div>
+      <div id="pixArea" class="pix hidden">
+        <h3>Pagamento via PIX</h3><p class="pixcode" id="pixCode">00020126580014BR.GOV.BCB.PIX0136gothan-academy-demo-23000</p>
+        <button class="btn primary" id="copyPix">Copiar código PIX</button>
+      </div>
+      <form id="cardArea" class="hidden">
+        <div class="field"><label>Número do cartão</label><input required inputmode="numeric" placeholder="0000 0000 0000 0000"></div>
+        <div class="field"><label>Nome no cartão</label><input required placeholder="Nome completo"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="field"><label>Validade</label><input required placeholder="MM/AA"></div>
+          <div class="field"><label>CVV</label><input required placeholder="000"></div>
+        </div>
+        <button class="btn primary">Finalizar matrícula</button>
+      </form>
+      <div id="paymentStatus"></div>
+    </div>
+  </section>
+</main>
+</section>
+
+<script>
+const $=id=>document.getElementById(id);
+let loginMode=false, selected={name:"",price:""};
+
+function getUser(){return JSON.parse(localStorage.getItem("gothanUser")||"null")}
+function showMsg(text,type="error"){$("authMsg").innerHTML=`<div class="msg ${type}">${text}</div>`}
+
+function renderAuth(){
+  $("authSub").textContent=loginMode?"Entre para acessar seu painel":"Crie sua conta para continuar";
+  $("registerFields").classList.toggle("hidden",loginMode);
+  $("authBtn").textContent=loginMode?"Entrar":"Criar conta";
+  $("switchText").textContent=loginMode?"Ainda não possui uma conta?":"Já possui uma conta?";
+  $("switchBtn").textContent=loginMode?"Criar conta":"Entrar";
+  $("authMsg").innerHTML="";
+}
+$("switchBtn").onclick=()=>{loginMode=!loginMode;renderAuth()};
+
+$("authBtn").onclick=()=>{
+  const email=$("email").value.trim().toLowerCase(), pass=$("password").value;
+  if(!email||!pass)return showMsg("Preencha e-mail e senha.");
+  if(pass.length<6)return showMsg("A senha precisa ter pelo menos 6 caracteres.");
+  if(loginMode){
+    const user=getUser();
+    if(!user||user.email!==email||user.password!==pass)return showMsg("E-mail ou senha incorretos.");
+    enterApp(user);
+  }else{
+    const name=$("name").value.trim();
+    if(!name)return showMsg("Digite seu nome.");
+    localStorage.setItem("gothanUser",JSON.stringify({name,email,password:pass}));
+    enterApp({name,email,password:pass});
+  }
+};
+
+function enterApp(user){
+  $("auth").classList.add("hidden");$("app").classList.remove("hidden");
+  $("welcome").textContent=`Olá, ${user.name}!`;$("userLabel").textContent=user.email;
+}
+function logout(){localStorage.removeItem("gothanSession");$("app").classList.add("hidden");$("auth").classList.remove("hidden");loginMode=true;renderAuth()}
+$("logout").onclick=logout;
+
+document.querySelectorAll("nav button[data-page]").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));$(b.dataset.page).classList.add("active");
+});
+
+document.querySelectorAll(".choose").forEach(b=>b.onclick=()=>{
+  selected={name:b.dataset.plan,price:b.dataset.price};
+  $("selectedPlan").textContent=`Plano selecionado: ${selected.name} — R$ ${selected.price}/mês`;
+  $("paymentContent").classList.remove("hidden");$("pixArea").classList.remove("hidden");$("cardArea").classList.add("hidden");
+  $("pixBtn").classList.add("selected");$("cardBtn").classList.remove("selected");$("paymentStatus").innerHTML="";
+  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+  document.querySelector('nav button[data-page="payment"]').classList.add("active");
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));$("payment").classList.add("active");
+});
+$("pixBtn").onclick=()=>{$("pixArea").classList.remove("hidden");$("cardArea").classList.add("hidden");$("pixBtn").classList.add("selected");$("cardBtn").classList.remove("selected")};
+$("cardBtn").onclick=()=>{$("cardArea").classList.remove("hidden");$("pixArea").classList.add("hidden");$("cardBtn").classList.add("selected");$("pixBtn").classList.remove("selected")};
+$("copyPix").onclick=async()=>{await navigator.clipboard.writeText($("pixCode").textContent);$("paymentStatus").innerHTML='<div class="status">Código PIX copiado!</div>'};
+$("cardArea").onsubmit=e=>{e.preventDefault();$("paymentStatus").innerHTML='<div class="status">Pagamento aprovado! Seja bem-vindo à iphones baratinhos confia.</div>';e.target.reset()};
+
+if(getUser()&&localStorage.getItem("gothanSession"))enterApp(getUser());
+$("authBtn").addEventListener("click",()=>{if(getUser())localStorage.setItem("gothanSession","1")});
+renderAuth();
+</script>
+</body>
+</html>
